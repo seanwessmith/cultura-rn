@@ -1,70 +1,82 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, { useState } from "react";
+import ContentView from "./content-view";
+import { View, Text, ImageBackground, StyleSheet, Button } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const LandingScreen = () => {
+  const [isActive, setIsActive] = useState(false);
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+  if (isActive) {
+    // Replace 'ContentView' with your main content component for React Native
+    return <ContentView />;
+  } else {
+    return (
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        style={styles.background}
+      >
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Cultura</Text>
+            <Text style={styles.slashText}>/</Text>
+          </View>
+          <Text style={styles.description}>
+            Explore the world of art like never before with Cultura.
+          </Text>
+          <Text style={styles.description}>
+            Unlock the stories behind a piece of artwork by snapping a photo.
+            Whether it's a famous painting in a museum or a fascinating street
+            mural you'll receive an in-depth analysis of the piece.
+          </Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Continue"
+              onPress={() => setIsActive(true)}
+              color="black"
+            />
+          </View>
+        </View>
+      </ImageBackground>
+    );
+  }
+};
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  background: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  slashText: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
+    marginLeft: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  titleText: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "white",
+  },
+  description: {
+    textAlign: "center",
+    marginBottom: 20,
+    color: "white",
   },
 });
+
+export default LandingScreen;
